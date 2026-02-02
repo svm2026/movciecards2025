@@ -80,8 +80,24 @@ jobs:
             -Dsonar.password=admin1
 
   deploy:
-    needs: qa
     runs-on: ubuntu-latest
+    needs: qa
+    if: github.ref=='refs/heads/master'
+    environment:
+      name: "Production"
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
     steps:
-      - name: despliegue
-        run: echo "despliegue"
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: moviecards-java
+
+      - name: Deply to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "moviecards-svm"
+          slot-name: "Production"
+          package: "*.jar"
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D6ED3BD417664637ADFE2D648524B336 }}
