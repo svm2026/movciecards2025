@@ -21,7 +21,7 @@ public class ActorServiceImpl implements ActorService {
     @Autowired
     RestTemplate template;
 
-    String url = "https://moviecards-serivce-gonzalez.azurewebsites.net/actors";
+    String url = "https://moviecards-service-gonzalez.azurewebsites.net/actors";
 
     @Override
     public List<Actor> getAllActors() {
