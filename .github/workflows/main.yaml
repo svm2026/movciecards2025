@@ -15,7 +15,7 @@ jobs:
           java-version: "11"
           distribution: "adopt"
 
-      - name: Contruir con Maven
+      - name: Construir con Maven
         run: mvn clean package -DskipTests
 
       - name: Guardar paquete generado para el trabajo de despliegue
